@@ -30,8 +30,12 @@ else
             for(int i = 0; i<play.size(); i++)
             System.out.println(i+1 + " -  " + play.get(i));
             UUID uuid = UUID.randomUUID() ; 
-            System.out.println("hmac: "+uuid);
             c=(int)( Math.random() * (play.size()+1 - 1) ) + 1;
+         String key = play.get(c-1);
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        sha256_HMAC.init(new SecretKeySpec(key.getBytes(), "HmacSHA256"));
+        byte[] result = sha256_HMAC.doFinal(uuid.toString().getBytes());
+        System.out.println ("Hmac: "+DatatypeConverter.printHexBinary(result));
             System.out.println("Enter your move:");
             p=sc.nextInt();
             System.out.println("Your move:"+play.get(p-1));
@@ -74,11 +78,7 @@ else
           
           }
               
-        String key = play.get(p-1);
-        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        sha256_HMAC.init(new SecretKeySpec(key.getBytes(), "HmacSHA256"));
-        byte[] result = sha256_HMAC.doFinal(uuid.toString().getBytes());
-        System.out.println ("Hmac key: "+DatatypeConverter.printHexBinary(result));
+        System.out.println("hmac key: "+uuid);
 
         } 
        
