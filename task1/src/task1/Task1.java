@@ -31,10 +31,10 @@ else
             System.out.println(i+1 + " -  " + play.get(i));
             UUID uuid = UUID.randomUUID() ; 
             c=(int)( Math.random() * (play.size()+1 - 1) ) + 1;
-         String key = play.get(c-1);
+         String key = uuid.toString();
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         sha256_HMAC.init(new SecretKeySpec(key.getBytes(), "HmacSHA256"));
-        byte[] result = sha256_HMAC.doFinal(uuid.toString().getBytes());
+        byte[] result = sha256_HMAC.doFinal(play.get(c-1).toString().getBytes());
         System.out.println ("Hmac: "+DatatypeConverter.printHexBinary(result));
             System.out.println("Enter your move:");
             p=sc.nextInt();
